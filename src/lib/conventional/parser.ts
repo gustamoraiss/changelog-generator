@@ -6,7 +6,23 @@ export function parseCommit(message: string): ParsedCommit {
   const match = HEADER_REGEX.exec(message)
 
   if (!match) {
-    throw new Error("not a conventional commit"); // temporario
+    const type = "other"
+    const scope = null
+    const description = message
+    const body = null
+    const breaking = false
+    const breakingNote = null
+    const conventional = false
+
+    return {
+      type,
+      scope,
+      description,
+      body,
+      breaking,
+      breakingNote,
+      conventional
+    };
   }
 
   const type = match[1]

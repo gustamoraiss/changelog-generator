@@ -28,4 +28,16 @@ describe("parseCommit", () => {
       conventional: true,
     });
   });
-});
+  it("usa fallback para commit fora do padrão", () => {
+    const result = parseCommit("fixed stuff");
+    expect(result).toEqual({
+      type: "other",
+      scope: null,
+      description: "fixed stuff",
+      body: null,
+      breaking: false,
+      breakingNote: null,
+      conventional: false,
+    });
+  });
+})
