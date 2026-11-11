@@ -40,4 +40,16 @@ describe("parseCommit", () => {
       conventional: false,
     });
   });
+  it("separa o corpo do cabeçalho em commits de várias linhas", () => {
+    const result = parseCommit("feat: add login\n\nAdds Google sign-in.");
+    expect(result).toEqual({
+      type: "feat",
+      scope: null,
+      description: "add login",
+      body: "Adds Google sign-in.",
+      breaking: false,
+      breakingNote: null,
+      conventional: true,
+    });
+  });
 })

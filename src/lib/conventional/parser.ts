@@ -3,7 +3,11 @@ import type { ParsedCommit } from "./types";
 const HEADER_REGEX = /^(\w+)(?:\(([^)]+)\))?: (.+)$/
 
 export function parseCommit(message: string): ParsedCommit {
-  const match = HEADER_REGEX.exec(message)
+  const lines = message.split("\n")
+  const header = lines[0]
+  const body = lines.slice(1).join("\n").trim() || null
+  const match = HEADER_REGEX.exec(header)
+  
 
   if (!match) {
     const type = "other"
@@ -28,7 +32,6 @@ export function parseCommit(message: string): ParsedCommit {
   const type = match[1]
   const scope = match[2] ?? null
   const description = match[3]
-  const body = null
   const breaking = false
   const breakingNote = null
   const conventional = true
@@ -42,4 +45,5 @@ export function parseCommit(message: string): ParsedCommit {
     breakingNote,
     conventional
   };
+
 }
