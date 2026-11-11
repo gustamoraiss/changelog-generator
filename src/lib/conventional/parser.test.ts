@@ -52,4 +52,16 @@ describe("parseCommit", () => {
       conventional: true,
     });
   });
+  it("trata commits de breaking change com feat!", () => {
+    const result = parseCommit("feat!: drop support for Node 16");
+    expect(result).toEqual({
+      type: "feat",
+      scope: null,
+      description: "drop support for Node 16",
+      body: null,
+      breaking: true,
+      breakingNote: null,
+      conventional: true,
+    });
+  })
 })
