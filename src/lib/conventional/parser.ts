@@ -7,6 +7,7 @@ export function parseCommit(message: string): ParsedCommit {
   const header = lines[0]
   const body = lines.slice(1).join("\n").trim() || null
   const match = HEADER_REGEX.exec(header)
+  const BREAKING_REGEX = /^BREAKING CHANGE: (.+)$/m
   
 
   if (!match) {
@@ -32,8 +33,9 @@ export function parseCommit(message: string): ParsedCommit {
   const type = match[1]
   const scope = match[2] ?? null
   const description = match[4]
-  const breaking = match[3] === "!"
-  const breakingNote = null
+  const breakingMatch = body ? BREAKING_REGEX.exec(body) : null
+  const breaking = match[3] === "!" || breakingMatch !== null
+  const breakingNote = breakingMatch ? breakingMatch[1] : null
   const conventional = true
 
   return {

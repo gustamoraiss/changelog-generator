@@ -63,5 +63,17 @@ describe("parseCommit", () => {
       breakingNote: null,
       conventional: true,
     });
-  })
+  });
+  it("trata commits de breaking change com BREAKING CHANGE", () => {
+    const result = parseCommit("feat: change auth flow\n\nBREAKING CHANGE: tokens now expire after 1 hour")
+    expect(result).toEqual({
+      type: "feat",
+      scope: null,
+      description: "change auth flow",
+      body: "BREAKING CHANGE: tokens now expire after 1 hour",
+      breaking: true,
+      breakingNote: "tokens now expire after 1 hour",
+      conventional: true
+    });
+  });
 })
