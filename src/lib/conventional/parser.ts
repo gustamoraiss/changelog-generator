@@ -1,13 +1,13 @@
 import type { ParsedCommit } from "./types";
 
 const HEADER_REGEX = /^(\w+)(?:\(([^)]+)\))?(!)?: (.+)$/
+ const BREAKING_REGEX = /^BREAKING CHANGE: (.+)$/m
 
 export function parseCommit(message: string): ParsedCommit {
   const lines = message.split("\n")
   const header = lines[0]
   const body = lines.slice(1).join("\n").trim() || null
   const match = HEADER_REGEX.exec(header)
-  const BREAKING_REGEX = /^BREAKING CHANGE: (.+)$/m
   
 
   if (!match) {
