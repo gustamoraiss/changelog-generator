@@ -1,7 +1,7 @@
 import type { ParsedCommit } from "./types";
 
 const HEADER_REGEX = /^(\w+)(?:\(([^)]+)\))?(!)?: (.+)$/
- const BREAKING_REGEX = /^BREAKING CHANGE: (.+)$/m
+const BREAKING_REGEX = /^BREAKING CHANGE: (.+)$/m
 
 export function parseCommit(message: string): ParsedCommit {
   const lines = message.split("\n")
